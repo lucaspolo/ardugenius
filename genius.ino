@@ -1,4 +1,8 @@
 
+/**
+  * Programa Genius para Arduino
+  */
+
 #define DO 33
 #define RE 73
 #define MI 165
@@ -14,12 +18,6 @@ void setup() {
   configuraPinos();
 }
 
-void inicializaNumeros() {
-  Serial.println("inicializaNumeros()");
-  for(int i = 0; i < 100; i++) numeros[i] = 0;
-  posicao = 0;
-}
-
 void configuraPinos() {
   Serial.println("configuraPinos()");
   for(int i = 2; i <= 5; i++) pinMode(i, INPUT);
@@ -27,10 +25,10 @@ void configuraPinos() {
 }
 
 void loop() {
-  principal(); 
+  genius(); 
 }
 
-void principal() {
+void genius() {
   Serial.println("principal()");
   inicializaNumeros();
   
@@ -43,6 +41,12 @@ void principal() {
     }
   }
   
+}
+
+void inicializaNumeros() {
+  Serial.println("inicializaNumeros()");
+  for(int i = 0; i < 100; i++) numeros[i] = 0;
+  posicao = 0;
 }
 
 void insereNovoNumero() {

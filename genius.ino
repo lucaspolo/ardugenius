@@ -10,8 +10,8 @@ int posicao;
 void setup() {
   randomSeed(analogRead(0));
   Serial.begin(9600);
+  randomSeed(analogRead(0));
   configuraPinos();
-  inicializaNumeros();
 }
 
 void inicializaNumeros() {
@@ -27,15 +27,22 @@ void configuraPinos() {
 }
 
 void loop() {
-  while(true) {
-    principal(); 
-  }  
+  principal(); 
 }
 
 void principal() {
   Serial.println("principal()");
-  insereNovoNumero();
-  validaSequencia();
+  inicializaNumeros();
+  
+  while(true) {
+    insereNovoNumero();
+    exibirSequencia();
+    if(!validaSequencia()) {
+       perdeu();
+       return;
+    }
+  }
+  
 }
 
 void insereNovoNumero() {
@@ -46,25 +53,23 @@ void insereNovoNumero() {
   numeros[posicao] = 0; 
 }
 
-void validaSequencia() {
+boolean validaSequencia() {
   Serial.println("validaSequencia()");
-  exibirSequencia();
+
   for(int i = 0; numeros[i] != 0; i++) {
     int botaoLido = lerBotao();
     if(botaoLido == numeros[i]) {
       piscaLed(numeros[i]);
     } else {
-        perdeu();
-        break;
+        return false;
     }
   }
+  return true;
 }
 
 void perdeu() {
   Serial.println("perdeu()");
   buzz(3);
-  numeros[0] = 0;
-  posicao = 0;
 }
 
 void buzz(int repeticoes) {

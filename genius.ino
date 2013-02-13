@@ -13,13 +13,11 @@ int posicao;
 
 void setup() {
   randomSeed(analogRead(0));
-  Serial.begin(9600);
   randomSeed(analogRead(0));
   configuraPinos();
 }
 
 void configuraPinos() {
-  Serial.println("configuraPinos()");
   for(int i = 2; i <= 5; i++) pinMode(i, INPUT);
   for(int i = 9; i <= 12; i++) pinMode(i, OUTPUT);
 }
@@ -29,7 +27,6 @@ void loop() {
 }
 
 void genius() {
-  Serial.println("principal()");
   inicializaNumeros();
   
   while(true) {
@@ -44,13 +41,11 @@ void genius() {
 }
 
 void inicializaNumeros() {
-  Serial.println("inicializaNumeros()");
   for(int i = 0; i < 100; i++) numeros[i] = 0;
   posicao = 0;
 }
 
 void insereNovoNumero() {
-  Serial.println("insereNovoNumero()");
   int pinoNovo = numeroRandomico();
   numeros[posicao] = pinoNovo;
   posicao++;
@@ -58,7 +53,6 @@ void insereNovoNumero() {
 }
 
 boolean validaSequencia() {
-  Serial.println("validaSequencia()");
 
   for(int i = 0; numeros[i] != 0; i++) {
     int botaoLido = lerBotao();
@@ -72,12 +66,10 @@ boolean validaSequencia() {
 }
 
 void perdeu() {
-  Serial.println("perdeu()");
   buzz(3);
 }
 
 void buzz(int repeticoes) {
-  Serial.println("buzz()");
   for(int i = 0; i < repeticoes; i++) {
     tone(8, 262, 8/1000);
     delay(100);
@@ -87,12 +79,10 @@ void buzz(int repeticoes) {
 }
 
 int numeroRandomico() {
-  Serial.println("numeroRandomico()");
   return random(9, 13); 
 }
 
 void exibirSequencia() {
-  Serial.println("exibirSequencia()");
   for(int i = 0; numeros[i] != 0; i++) {
     if(numeros[i] == 0) return;
     piscaLed(numeros[i]);
@@ -100,7 +90,6 @@ void exibirSequencia() {
 }
 
 void piscaLed(int pino) {
-  Serial.println("piscaLed()");
   digitalWrite(pino, HIGH);
   tom(pino);
   delay(250);
@@ -109,7 +98,6 @@ void piscaLed(int pino) {
 }
 
 void tom(int pino) {
-  Serial.println("tom()");
   switch(pino) {
     case 9:
       tone(8, DO, 8/1000);
@@ -131,8 +119,6 @@ void tom(int pino) {
 }
 
 int lerBotao() {
-  Serial.println("lerBotao()");
-  Serial.println("Iniciando ler botao");
   while(true) {                                        
     for(int i = 2; i < 6; i++) {
       if(digitalRead(i) == HIGH) {

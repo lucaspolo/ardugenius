@@ -1,4 +1,3 @@
-
 /**
   * Programa Genius para Arduino
   */
@@ -8,11 +7,13 @@
 #define MI 165
 #define FA 349
 
+#define PINO_INICIAL 9
+#define PINO_FINAL 13
+
 int numeros[100];
 int posicao;
 
 void setup() {
-  randomSeed(analogRead(0));
   randomSeed(analogRead(0));
   configuraPinos();
 }
@@ -79,7 +80,7 @@ void buzz(int repeticoes) {
 }
 
 int numeroRandomico() {
-  return random(9, 13); 
+  return random(PINO_INICIAL, PINO_FINAL); 
 }
 
 void exibirSequencia() {
